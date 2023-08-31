@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .input{
+      @apply bg-night-300 text-sm p-2 border duration-300
+    }
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background: rgba(34, 46, 59, 0);
+}
+::-webkit-scrollbar-thumb{
+  border: 3px solid #12232E;
+  background: rgba(44, 63, 73, 0.8);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  border: 3px solid #004A77;
+}
+
+.track {
+  height: 100%;
+  
+}
+.track-0 {
+  background: #007CC7;
+  border-radius: 2px
+}
+
+
+
