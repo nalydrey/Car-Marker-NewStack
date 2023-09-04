@@ -3,7 +3,7 @@ import { EngineDetails } from "../models/engineDetails"
 import { GeneralInfo } from "../models/generalInfo"
 import { Location } from "../models/location"
 
-interface SellFormFields {
+export interface SellFormFields {
     title: string
     picturesId: number[]
     condition: string

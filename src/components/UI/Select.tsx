@@ -1,33 +1,35 @@
-import {useState, useEffect, MouseEvent} from 'react'
+import {useState, useEffect, MouseEvent, FocusEvent} from 'react'
 import {ChevronDownIcon} from '@heroicons/react/20/solid'
 import { DropDown } from './DropDown'
 
 export interface SelectEvent {
     chosedtem: string
-    groupName?: string
-    name?: string
+    name: string
 }
 
 interface SelectProps {
+    error?: string
     title?: string
     placeholder?: string
-    groupName?: string 
     name?: string 
     value?: string | number | null
-    list: (string)[]  
+    list: (string)[]  | undefined
     onChange?: (event: SelectEvent) => void
+    onBlur?: (event: FocusEvent<HTMLButtonElement, Element>) => void
 }
 
 export const Select = ({
-    groupName,
-    name,
+    error,
+    name = '',
     title,
     placeholder = 'Make choise',
     value,
-    list,
-    onChange = () => {}
+    list = [],
+    onChange = () => {},
+    onBlur =()=>{}
 }: SelectProps) => {
-
+    const isError = !!error
+    
     const [isActive, setActive] = useState<boolean>(false)
 
     useEffect(()=>{
@@ -51,9 +53,13 @@ export const Select = ({
   return (
     <div className='relative'>
         <button  
+            className={`text-white border duration-300 bg-night-300 p-2 rounded-sm flex items-center w-full justify-between 
+            ${isError ? 'border-red-700' : isActive ? 'border-white': 'border-transparent'}
+            `}
+            name = {name}
             type='button'
-            className={`text-white border duration-300 ${isActive ? 'border-white':' border-transparent'}  bg-night-300 p-2 rounded-sm flex items-center w-full justify-between`}
             onClick={handleActive}
+            onBlur={onBlur}
         >
             <p className={`text-xs sm:text-sm duration-300 ${isActive || value ? 'opacity-1' : 'opacity-0'}`}>{value ? value : placeholder ||'none'}</p>
             <div className={`w-4 h-2 flex items-center duration-200 ${isActive ? ' rotate-180' : 'rotate-0'} `}>
@@ -70,7 +76,7 @@ export const Select = ({
             search
             isOpen = {isActive}
             list={list}
-            onChoise={(chosedtem)=>onChange({chosedtem, name, groupName})}
+            onChoise={(chosedtem)=>onChange({chosedtem, name})}
         />
     </div>
     

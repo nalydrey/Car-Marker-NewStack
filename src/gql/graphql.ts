@@ -94,6 +94,21 @@ export type GeneralInfoInput = {
   passangerCapacity?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type Lists = {
+  __typename?: 'Lists';
+  bodyTypes: Array<Scalars['String']['output']>;
+  brands: Array<Scalars['String']['output']>;
+  cities: Array<Scalars['String']['output']>;
+  colors: Array<Scalars['String']['output']>;
+  countries: Array<Scalars['String']['output']>;
+  drivetrains: Array<Scalars['String']['output']>;
+  features: Array<Scalars['String']['output']>;
+  fuelTypes: Array<Scalars['String']['output']>;
+  models: Array<Scalars['String']['output']>;
+  transmissions: Array<Scalars['String']['output']>;
+  years: Array<Scalars['String']['output']>;
+};
+
 export type Location = {
   __typename?: 'Location';
   city?: Maybe<Scalars['String']['output']>;
@@ -132,6 +147,7 @@ export type Query = {
   __typename?: 'Query';
   clientCarimages?: Maybe<Array<Maybe<ClientCarImage>>>;
   clientCars?: Maybe<Array<Maybe<ClientCar>>>;
+  lists?: Maybe<Lists>;
 };
 
 export type SellForm = {
@@ -157,6 +173,11 @@ export type CreateClientCarMutationVariables = Exact<{
 
 export type CreateClientCarMutation = { __typename?: 'Mutation', createClientCar?: { __typename?: 'MutationClientCar', isSuccess: boolean } | null };
 
+export type GetListsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetListsQuery = { __typename?: 'Query', lists?: { __typename?: 'Lists', countries: Array<string>, cities: Array<string>, brands: Array<string>, models: Array<string>, years: Array<string>, bodyTypes: Array<string>, colors: Array<string>, fuelTypes: Array<string>, transmissions: Array<string>, drivetrains: Array<string>, features: Array<string> } | null };
+
 export type GetClientCarsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -171,5 +192,6 @@ export type DeleteClientCarMutation = { __typename?: 'Mutation', deleteCar?: { _
 
 
 export const CreateClientCarDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateClientCar"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"car"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SellForm"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createClientCar"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"car"},"value":{"kind":"Variable","name":{"kind":"Name","value":"car"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isSuccess"}}]}}]}}]} as unknown as DocumentNode<CreateClientCarMutation, CreateClientCarMutationVariables>;
+export const GetListsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetLists"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lists"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countries"}},{"kind":"Field","name":{"kind":"Name","value":"cities"}},{"kind":"Field","name":{"kind":"Name","value":"brands"}},{"kind":"Field","name":{"kind":"Name","value":"models"}},{"kind":"Field","name":{"kind":"Name","value":"years"}},{"kind":"Field","name":{"kind":"Name","value":"bodyTypes"}},{"kind":"Field","name":{"kind":"Name","value":"colors"}},{"kind":"Field","name":{"kind":"Name","value":"fuelTypes"}},{"kind":"Field","name":{"kind":"Name","value":"transmissions"}},{"kind":"Field","name":{"kind":"Name","value":"drivetrains"}},{"kind":"Field","name":{"kind":"Name","value":"features"}}]}}]}}]} as unknown as DocumentNode<GetListsQuery, GetListsQueryVariables>;
 export const GetClientCarsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetClientCars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"clientCars"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"brand"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetClientCarsQuery, GetClientCarsQueryVariables>;
 export const DeleteClientCarDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteClientCar"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteCar"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isSuccess"}}]}}]}}]} as unknown as DocumentNode<DeleteClientCarMutation, DeleteClientCarMutationVariables>;

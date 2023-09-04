@@ -8,8 +8,9 @@ interface CheckBoxGroupProps {
     search?: boolean
     className?: string
     title?: string
+    error?: string 
     name: string
-    list: string[]
+    list: string[] | undefined
     activeValues: string | string[]
     onChange?: (values: CheckBoxEvent | CheckBoxEvent[]) => void
 }
@@ -18,17 +19,30 @@ export const CheckBoxGroup = ({
     search = false,
     className,
     title,
+    error,
     name,
-    list,
+    list = [],
     activeValues,
     onChange
 }: CheckBoxGroupProps) => {
+
+    const isError = !!error
 
     const isArray = Array.isArray(activeValues)
 
     const [reserv, setReserv] = useState<CheckBoxEvent[]>([])
     const [checkList, setCheckList] = useState<CheckBoxEvent[]>([])
     
+    useEffect(()=>{
+        if(list.length){
+            const arr = list.map(item => ({
+                isActive: false,
+                label: item,
+                name
+            }))
+            setCheckList(arr)
+        }
+    },[list.length])
     
 
     const formik = useFormik({
@@ -111,9 +125,8 @@ export const CheckBoxGroup = ({
     <div >
         {
             search &&
-            <form 
+            <div 
                 className='mb-4'
-                onSubmit={formik.handleSubmit}
             >
                 <Input
                     name='check'
@@ -121,10 +134,11 @@ export const CheckBoxGroup = ({
                     placeholder='Search here'
                     onChange={handleInput}
                     onFocus={handleFocus}
+                    onEnter={()=>formik.handleSubmit()}
                 />
-            </form>
+            </div>
         }
-        <div className={`relative ${className}`}>
+        <div className={`relative border duration-300 ${isError ? 'border-red-700':'border-transparent'} py-2 ${className}`}>
             {
                 checkList.map(item => {
                     return (

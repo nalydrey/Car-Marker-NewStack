@@ -1,4 +1,4 @@
-import {useState, ChangeEvent} from 'react'
+import {useState, ChangeEvent, useEffect} from 'react'
 import { Input } from './Input'
 import {useFormik} from 'formik'
 
@@ -20,6 +20,11 @@ export const DropDown = ({
 }: DropDownProps) => {
 
     const [localList, setLocalList] = useState<string[]>(list)
+
+    useEffect(()=>{
+        setLocalList(list)
+    }, [list.length])
+
     
     const formik = useFormik({
         initialValues: {dropSearch: ''},
